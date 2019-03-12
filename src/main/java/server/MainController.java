@@ -1,71 +1,95 @@
 package server;
 
-
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.NetworkInterface;
 import java.net.SocketException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
 
 @RestController
 public class MainController {
-    private final String actualApiVersion = "v1";
-    // TODO: Try add new/old API version
+    private static ApiVersionInfo apiVersionInfo = new ApiVersionInfo("v1");
     private Enumeration<NetworkInterface> networkInterfaces;
 
-    @RequestMapping("/service/version")
-    public CustomResponse getApiVersion() {
-        return new CustomResponse(actualApiVersion);
+    @RequestMapping("service/version")
+    public ApiVersionInfo getActualApiVersion() {
+        return new ApiVersionInfo(apiVersionInfo.getActualApiVersion());
     }
 
-    @RequestMapping("/service/" + actualApiVersion + "/interfaces")
-    public CustomResponse getInterfaces() {
-        try {
-            networkInterfaces = NetworkInterface.getNetworkInterfaces();
-            List<String> listOfNetworkInterfaces = new LinkedList<>();
-            for (NetworkInterface netint : Collections.list(networkInterfaces)) {
-                listOfNetworkInterfaces.add(netint.getName());
+    @RequestMapping("/service/{apiVersion}/interfaces")
+    public ListOfNetInterfaces getInterfaces(@PathVariable String apiVersion) throws SocketException {
+        networkInterfaces = NetworkInterface.getNetworkInterfaces();
+        ArrayList<String> namesOfInterfaces = new ArrayList<>();
+        if (apiVersion.equals(apiVersionInfo.getActualApiVersion())) {
+            for (NetworkInterface netint : Collections.list(networkInterfaces)){
+                namesOfInterfaces.add(netint.getName());
             }
-            return new CustomResponse(actualApiVersion, listOfNetworkInterfaces);
-        } catch (SocketException e) {
-            e.printStackTrace();
+            return new ListOfNetInterfaces(namesOfInterfaces);
+        } else {
+            //TODO: придумать что-то
+            System.out.println("This API version is not actual. Please, get the actual API version");
+            return null;
         }
-        return new CustomResponse();
     }
 
-    @RequestMapping("/service/" + actualApiVersion + "/interface/name")
-    public CustomResponse getDetailsNetworkInterface(@RequestParam(value="name") String name) {
-        try {
+    @RequestMapping("/service/{apiVersion}/interface/name")
+    public NetworkInterfaceInfo getDetailsNetworkInterface(@RequestParam(value = "name") String name,
+                                                           @PathVariable String apiVersion) throws SocketException {
+        if (apiVersion.equals(apiVersionInfo.getActualApiVersion())) {
             networkInterfaces = NetworkInterface.getNetworkInterfaces();
-            List<String> listOfNetworkInterfaces = new LinkedList<>();
-            List<String> details = new LinkedList<>();
-            for (NetworkInterface netint : Collections.list(networkInterfaces)) {
-                listOfNetworkInterfaces.add(netint.getName());
-                if (netint.getDisplayName().equals(name)) {
-                    details.add("name: " + name);
-                    try {
-                        byte[] mac = netint.getHardwareAddress();
-                        StringBuilder sb = new StringBuilder();
-                        for (byte b : mac) {
-                            if (sb.length() > 0)
-                                sb.append(':');
-                            sb.append(String.format("%02x", b));
-                        }
-                        details.add("hw_addr: " + sb.toString());
-                        details.add("inet_addr: " + Collections.list(netint.getInetAddresses()).toString());
-                        details.add("MTU: " + netint.getMTU());
-                    } catch (NullPointerException e) {
-                        System.out.println("This interface has not inet/hw");
-                        e.printStackTrace();
+            try {
+                for (NetworkInterface netint : Collections.list(networkInterfaces)) {
+                    if (netint.getName().equals(name)) {
+                        return new NetworkInterfaceInfo(
+                                name,
+                                getStringHardwareAddress(netint),
+                                Collections.list(netint.getInetAddresses()).toString(),
+                                getStringMTU(netint));
                     }
                 }
+            }  catch (NullPointerException e) {
+                System.out.println("Can't get one of the details about this interface.");
+                e.printStackTrace();
             }
-            return new CustomResponse(actualApiVersion, listOfNetworkInterfaces, details);
-        } catch (SocketException e) {
+            //TODO: придумать что-то
+            System.out.println("Error after try/catch...");
+            return null;
+        } else {
+            //TODO: придумать что-то
+            System.out.println("This API version is not actual. Please, get the actual API version");
+            return null;
+        }
+    }
+
+    private String getStringHardwareAddress(NetworkInterface netint) {
+        try {
+            byte[] mac = netint.getHardwareAddress();
+            StringBuilder sb = new StringBuilder();
+            for (byte b : mac) {
+                if (sb.length() > 0)
+                    sb.append(':');
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (SocketException | NullPointerException e) {
+            System.out.println("Can't get hardware address of this network interface.");
             e.printStackTrace();
         }
-        return new CustomResponse();
+        return "";
+    }
+
+    private String getStringMTU(NetworkInterface netint) {
+        try {
+            return String.valueOf(netint.getMTU());
+        } catch (SocketException e) {
+            System.out.println();
+            e.printStackTrace();
+        }
+        return "";
     }
 }
