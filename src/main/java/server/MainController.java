@@ -16,17 +16,25 @@ public class MainController {
     private static ApiVersionInfo apiVersionInfo = new ApiVersionInfo("v1");
     private Enumeration<NetworkInterface> networkInterfaces;
 
+    /**
+     * @return - actual version of API;
+     */
     @RequestMapping("service/version")
     public ApiVersionInfo getActualApiVersion() {
         return new ApiVersionInfo(apiVersionInfo.getActualApiVersion());
     }
 
+    /**
+     * @param apiVersion       - version of API;
+     * @return                 - list of all network interfaces;
+     * @throws SocketException - exception, if we can't get network interfaces;
+     */
     @RequestMapping("/service/{apiVersion}/interfaces")
     public ListOfNetInterfaces getInterfaces(@PathVariable String apiVersion) throws SocketException {
         networkInterfaces = NetworkInterface.getNetworkInterfaces();
         ArrayList<String> namesOfInterfaces = new ArrayList<>();
         if (apiVersion.equals(apiVersionInfo.getActualApiVersion())) {
-            for (NetworkInterface netint : Collections.list(networkInterfaces)){
+            for (NetworkInterface netint : Collections.list(networkInterfaces)) {
                 namesOfInterfaces.add(netint.getName());
             }
             return new ListOfNetInterfaces(namesOfInterfaces);
@@ -37,6 +45,12 @@ public class MainController {
         }
     }
 
+    /**
+     * @param name             - name of network interface;
+     * @param apiVersion       - version of API;
+     * @return                 - detailed info about selected network interface;
+     * @throws SocketException - exception, if we can't get network interfaces;
+     */
     @RequestMapping("/service/{apiVersion}/interface/name")
     public NetworkInterfaceInfo getDetailsNetworkInterface(@RequestParam(value = "name") String name,
                                                            @PathVariable String apiVersion) throws SocketException {
@@ -52,7 +66,7 @@ public class MainController {
                                 getStringMTU(netint));
                     }
                 }
-            }  catch (NullPointerException e) {
+            } catch (NullPointerException e) {
                 System.out.println("Can't get one of the details about this interface.");
                 e.printStackTrace();
             }
@@ -66,6 +80,10 @@ public class MainController {
         }
     }
 
+    /**
+     * @param netint - selected network interface;
+     * @return -       hardware address of selected network interface;
+     */
     private String getStringHardwareAddress(NetworkInterface netint) {
         try {
             byte[] mac = netint.getHardwareAddress();
@@ -80,16 +98,20 @@ public class MainController {
             System.out.println("Can't get hardware address of this network interface.");
             e.printStackTrace();
         }
-        return "";
+        return "-";
     }
 
+    /**
+     * @param netint - selected network interface;
+     * @return -       MTU;
+     */
     private String getStringMTU(NetworkInterface netint) {
         try {
             return String.valueOf(netint.getMTU());
         } catch (SocketException e) {
-            System.out.println();
+            System.out.println("Can't get MTU of this network interface.");
             e.printStackTrace();
         }
-        return "";
+        return "-";
     }
 }

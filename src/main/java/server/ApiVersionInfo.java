@@ -18,6 +18,10 @@ public class ApiVersionInfo {
         return previousApiVersions;
     }
 
+    /**It helps changing and maintaining new and previous API's;
+     *
+     * @param newApiVersion - new actual version of API;
+     */
     public void setActualApiVersion(String newApiVersion) {
         previousApiVersions.add(this.actualApiVersion);
         this.actualApiVersion = newApiVersion;

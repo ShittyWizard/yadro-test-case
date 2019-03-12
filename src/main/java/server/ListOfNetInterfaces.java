@@ -1,7 +1,6 @@
 package server;
 
 import java.util.ArrayList;
-import java.util.Enumeration;
 
 public class ListOfNetInterfaces {
     private ArrayList<String> namesOfInterfaces;
