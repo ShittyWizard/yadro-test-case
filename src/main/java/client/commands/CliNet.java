@@ -30,7 +30,7 @@ class Version implements Runnable {
     public void run() {
         RestTemplate restTemplate = new RestTemplate();
         ApiVersionInfo apiVersionInfo = restTemplate.getForObject("http://" + server + ":" + port
-                + "/service/version1", ApiVersionInfo.class);
+                + "/service/version", ApiVersionInfo.class);
         assert apiVersionInfo != null;
         System.out.println(apiVersionInfo.getActualApiVersion());
     }
