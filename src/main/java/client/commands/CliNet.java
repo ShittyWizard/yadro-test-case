@@ -26,19 +26,11 @@ class Version implements Runnable {
     @CommandLine.Option(names = {"-p", "--port"}, required = true)
     private String port;
 
-    public String getVersion() {
-        RestTemplate restTemplate = new RestTemplate();
-        ApiVersionInfo apiVersionInfo = restTemplate.getForObject("http://" + server + ":" + port
-                + "/service/version", ApiVersionInfo.class);
-        assert apiVersionInfo != null;
-        return apiVersionInfo.getActualApiVersion();
-    }
-
     @Override
     public void run() {
         RestTemplate restTemplate = new RestTemplate();
         ApiVersionInfo apiVersionInfo = restTemplate.getForObject("http://" + server + ":" + port
-                + "/service/version", ApiVersionInfo.class);
+                + "/service/version1", ApiVersionInfo.class);
         assert apiVersionInfo != null;
         System.out.println(apiVersionInfo.getActualApiVersion());
     }
