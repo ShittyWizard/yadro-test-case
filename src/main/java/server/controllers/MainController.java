@@ -42,7 +42,6 @@ public class MainController {
             }
             return new ListOfNetInterfaces(namesOfInterfaces);
         } else {
-            //TODO: придумать что-то
             System.out.println("This API version is not actual. Please, get the actual API version");
             return null;
         }

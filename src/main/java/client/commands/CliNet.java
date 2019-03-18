@@ -1,5 +1,6 @@
 package client.commands;
 
+import client.response_models.ApiVersionInfo;
 import client.response_models.ListOfNetInterfaces;
 import client.response_models.NetworkInterfaceInfo;
 import org.springframework.web.client.RestTemplate;
@@ -7,13 +8,42 @@ import picocli.CommandLine;
 
 @CommandLine.Command(name = "cli_net", subcommands = {
         List.class,
-        Show.class })
+        Show.class,
+        Version.class})
 public class CliNet implements Runnable {
     @Override
     public void run() {
         System.out.println("Specify a subcommand");
     }
 }
+
+@CommandLine.Command(name = "version",
+        description = "Prints actual API version")
+class Version implements Runnable {
+    @CommandLine.Option(names = {"-s", "--server"}, required = true)
+    private String server;
+
+    @CommandLine.Option(names = {"-p", "--port"}, required = true)
+    private String port;
+
+    public String getVersion() {
+        RestTemplate restTemplate = new RestTemplate();
+        ApiVersionInfo apiVersionInfo = restTemplate.getForObject("http://" + server + ":" + port
+                + "/service/version", ApiVersionInfo.class);
+        assert apiVersionInfo != null;
+        return apiVersionInfo.getActualApiVersion();
+    }
+
+    @Override
+    public void run() {
+        RestTemplate restTemplate = new RestTemplate();
+        ApiVersionInfo apiVersionInfo = restTemplate.getForObject("http://" + server + ":" + port
+                + "/service/version", ApiVersionInfo.class);
+        assert apiVersionInfo != null;
+        System.out.println(apiVersionInfo.getActualApiVersion());
+    }
+}
+
 
 @CommandLine.Command(name = "list",
         description = "Prints all network interfaces")
