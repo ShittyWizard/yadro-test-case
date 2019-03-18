@@ -14,7 +14,7 @@ public class ApiVersionTest {
     @Autowired
     private MainController controller;
 
-    private String actualApiVersion = "v1";
+    private String actualApiVersion = "v12";
 
     @Test
     public void testGetActualApiVersion() {

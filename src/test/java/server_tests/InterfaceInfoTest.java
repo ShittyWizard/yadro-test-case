@@ -26,7 +26,7 @@ public class InterfaceInfoTest {
 
     private RestTemplate restTemplate = new RestTemplate();
 
-    private String actualApiVersion = "v1";
+    private String actualApiVersion = "v12";
     private String server = "localhost";
     private String port = "8080";
 
@@ -46,7 +46,6 @@ public class InterfaceInfoTest {
                                 + "/interface/name?name=lo",
                         NetworkInterfaceInfo.class);
         Assert.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assert.assertNotNull(response.getBody());
     }
 
     @Test

@@ -18,7 +18,7 @@ public class GetInterfacesTest {
 
     RestTemplate restTemplate = new RestTemplate();
 
-    private String actualApiVersion = "v1";
+    private String actualApiVersion = "v12";
     private String server = "localhost";
     private String port = "8080";
 
