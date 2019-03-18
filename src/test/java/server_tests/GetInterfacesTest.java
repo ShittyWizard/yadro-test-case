@@ -1,6 +1,7 @@
 package server_tests;
 
 import client.response_models.ListOfNetInterfaces;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -21,11 +22,6 @@ public class GetInterfacesTest {
     private String actualApiVersion = "v1";
     private String server = "localhost";
     private String port = "8080";
-
-    @BeforeClass
-    public static void startServer(){
-        ServerApplication.main(new String[]{""});
-    }
 
     @Test
     public void test200StatusCodeGetInterfaces() {

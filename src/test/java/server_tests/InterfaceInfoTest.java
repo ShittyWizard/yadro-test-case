@@ -1,6 +1,7 @@
 package server_tests;
 
 import client.response_models.NetworkInterfaceInfo;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -30,10 +31,10 @@ public class InterfaceInfoTest {
     private String server = "localhost";
     private String port = "8080";
 
-    @BeforeClass
-    public static void startServer(){
-        ServerApplication.main(new String[]{""});
-    }
+//    @BeforeClass
+//    public static void startServer() {
+//        ServerApplication.main(new String[]{""});
+//    }
 
     // Testing for "lo" network interface
     @Test
@@ -63,5 +64,4 @@ public class InterfaceInfoTest {
         assert networkInterfaceInfo != null;
         Assert.assertEquals(networkInterface, networkInterfaceInfo.getName());
     }
-
 }
