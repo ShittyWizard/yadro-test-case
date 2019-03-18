@@ -5,4 +5,4 @@ dist: trusty
 jdk:
   - openjdk8
 
-script: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+script: mvn install -DskipTests=false -Dmaven.javadoc.skip=true -B -V
