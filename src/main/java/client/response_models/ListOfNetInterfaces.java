@@ -1,4 +1,4 @@
-package client;
+package client.response_models;
 
 import java.util.ArrayList;
 

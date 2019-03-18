@@ -1,4 +1,4 @@
-package client;
+package client.response_models;
 
 import java.util.Arrays;
 
@@ -25,22 +25,6 @@ public class NetworkInterfaceInfo {
 
     public String getMTU() {
         return MTU;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setHw_addr(String hw_addr) {
-        this.hw_addr = hw_addr;
-    }
-
-    public void setInet_addr(String inet_addr) {
-        this.inet_addr = inet_addr;
-    }
-
-    public void setMTU(String MTU) {
-        this.MTU = MTU;
     }
 
     @Override

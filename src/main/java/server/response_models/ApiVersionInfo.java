@@ -1,4 +1,4 @@
-package server;
+package server.response_models;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,7 @@ public class ApiVersionInfo {
     private String actualApiVersion;
     private ArrayList<String> previousApiVersions;
 
-    ApiVersionInfo(String actualApiVersion) {
+    public ApiVersionInfo(String actualApiVersion) {
         this.actualApiVersion = actualApiVersion;
     }
 

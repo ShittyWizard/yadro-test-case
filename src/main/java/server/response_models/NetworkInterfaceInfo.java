@@ -1,4 +1,4 @@
-package server;
+package server.response_models;
 
 public class NetworkInterfaceInfo {
     private final String name;

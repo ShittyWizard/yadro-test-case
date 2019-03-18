@@ -1,9 +1,12 @@
-package server;
+package server.controllers;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import server.response_models.ApiVersionInfo;
+import server.response_models.ListOfNetInterfaces;
+import server.response_models.NetworkInterfaceInfo;
 
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -70,11 +73,9 @@ public class MainController {
                 System.out.println("Can't get one of the details about this interface.");
                 e.printStackTrace();
             }
-            //TODO: придумать что-то
             System.out.println("Error after try/catch...");
             return null;
         } else {
-            //TODO: придумать что-то
             System.out.println("This API version is not actual. Please, get the actual API version");
             return null;
         }
