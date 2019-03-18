@@ -16,7 +16,7 @@ import server.ServerApplication;
 @SpringBootTest(classes = ServerApplication.class)
 public class GetInterfacesTest {
 
-    RestTemplate restTemplate = new RestTemplate();
+    private RestTemplate restTemplate = new RestTemplate();
 
     private String actualApiVersion = "v1";
     private String server = "localhost";
