@@ -1,6 +1,4 @@
-package client;
-
-import client.commands.CliNet;
+import commands.CliNet;
 import picocli.CommandLine;
 
 public class ClientApplication {

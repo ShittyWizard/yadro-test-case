@@ -1,10 +1,13 @@
-package server.response_models;
+package app.response_models;
 
 public class NetworkInterfaceInfo {
-    private final String name;
-    private final String hw_addr;
-    private final String inet_addr;
-    private final String MTU;
+    private String name;
+    private String hw_addr;
+    private String inet_addr;
+    private String MTU;
+
+    public NetworkInterfaceInfo() {
+    }
 
     public NetworkInterfaceInfo(String name, String hw_addr, String inet_addr, String MTU) {
         this.name = name;

@@ -1,10 +1,10 @@
-package client.commands;
+package commands;
 
-import client.response_models.ApiVersionInfo;
-import client.response_models.ListOfNetInterfaces;
-import client.response_models.NetworkInterfaceInfo;
 import org.springframework.web.client.RestTemplate;
 import picocli.CommandLine;
+import response_models.ApiVersionInfo;
+import response_models.ListOfNetInterfaces;
+import response_models.NetworkInterfaceInfo;
 
 @CommandLine.Command(name = "cli_net", subcommands = {
         List.class,

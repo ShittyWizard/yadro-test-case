@@ -1,9 +1,12 @@
-package server.response_models;
+package app.response_models;
 
 import java.util.ArrayList;
 
 public class ListOfNetInterfaces {
     private ArrayList<String> namesOfInterfaces;
+
+    public ListOfNetInterfaces() {
+    }
 
     public ListOfNetInterfaces(ArrayList<String> namesOfInterfaces) {
         this.namesOfInterfaces = namesOfInterfaces;

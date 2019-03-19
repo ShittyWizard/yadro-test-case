@@ -1,12 +1,13 @@
-package server.controllers;
+package app.controllers;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import server.response_models.ApiVersionInfo;
-import server.response_models.ListOfNetInterfaces;
-import server.response_models.NetworkInterfaceInfo;
+import app.response_models.ApiVersionInfo;
+import app.response_models.ListOfNetInterfaces;
+import app.response_models.NetworkInterfaceInfo;
 
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -15,6 +16,7 @@ import java.util.Collections;
 import java.util.Enumeration;
 
 @RestController
+@EnableAutoConfiguration
 public class MainController {
     private static ApiVersionInfo apiVersionInfo = new ApiVersionInfo("v1");
     private Enumeration<NetworkInterface> networkInterfaces;

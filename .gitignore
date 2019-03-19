@@ -2,3 +2,5 @@
 /target/
 /yadro_test_case.iml
 /.idea/
+/client/client.iml
+/server/server.iml

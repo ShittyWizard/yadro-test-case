@@ -1,4 +1,4 @@
-package client.response_models;
+package response_models;
 
 public class ApiVersionInfo {
     private String actualApiVersion;
