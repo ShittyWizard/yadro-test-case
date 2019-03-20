@@ -1,5 +1,6 @@
 package commands;
 
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 import picocli.CommandLine;
 import response_models.ApiVersionInfo;
@@ -31,12 +32,15 @@ class Version implements Runnable {
     @Override
     public void run() {
         RestTemplate restTemplate = new RestTemplate();
-        ApiVersionInfo apiVersionInfo = restTemplate.getForObject("http://" + server + ":" + port
-                + "/service/version", ApiVersionInfo.class);
-        assert apiVersionInfo != null;
-        System.out.println(apiVersionInfo.getActualApiVersion());
-
-
+        try {
+            ApiVersionInfo apiVersionInfo = restTemplate.getForObject("http://" + server + ":" + port
+                    + "/service/version", ApiVersionInfo.class);
+            assert apiVersionInfo != null;
+            System.out.println(apiVersionInfo.getActualApiVersion());
+        } catch (ResourceAccessException e) {
+            System.out.println("Error... Resource is not available");
+            e.printStackTrace();
+        }
     }
 }
 
@@ -56,15 +60,20 @@ class List implements Runnable {
     @Override
     public void run() {
         RestTemplate restTemplate = new RestTemplate();
-        ListOfNetInterfaces listOfNetInterfaces =
-                restTemplate.getForObject(
-                        "http://" + server + ":" + port
-                                + "/service/"
-                                + apiVersion
-                                + "/interfaces",
-                        ListOfNetInterfaces.class);
-        assert listOfNetInterfaces != null;
-        System.out.println(listOfNetInterfaces);
+        try {
+            ListOfNetInterfaces listOfNetInterfaces =
+                    restTemplate.getForObject(
+                            "http://" + server + ":" + port
+                                    + "/service/"
+                                    + apiVersion
+                                    + "/interfaces",
+                            ListOfNetInterfaces.class);
+            assert listOfNetInterfaces != null;
+            System.out.println(listOfNetInterfaces);
+        } catch (ResourceAccessException e) {
+            System.out.println("Error... Resource is not available");
+            e.printStackTrace();
+        }
     }
 }
 
@@ -86,14 +95,19 @@ class Show implements Runnable {
     @Override
     public void run() {
         RestTemplate restTemplate = new RestTemplate();
-        NetworkInterfaceInfo networkInterfaceInfo =
-                restTemplate.getForObject(
-                        "http://" + server + ":" + port
-                                + "/service/"
-                                + apiVersion
-                                + "/interface/name?name=" + networkInterface,
-                        NetworkInterfaceInfo.class);
-        assert networkInterfaceInfo != null;
-        System.out.println(networkInterfaceInfo.toString());
+        try {
+            NetworkInterfaceInfo networkInterfaceInfo =
+                    restTemplate.getForObject(
+                            "http://" + server + ":" + port
+                                    + "/service/"
+                                    + apiVersion
+                                    + "/interface/name?name=" + networkInterface,
+                            NetworkInterfaceInfo.class);
+            assert networkInterfaceInfo != null;
+            System.out.println(networkInterfaceInfo.toString());
+        } catch (ResourceAccessException e) {
+            System.out.println("Error... Resource is not available");
+            e.printStackTrace();
+        }
     }
 }

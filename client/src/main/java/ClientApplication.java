@@ -14,7 +14,12 @@ public class ClientApplication {
             String line = sc.nextLine();
             if (!line.equals("exit")) {
                 arguments = line.split(" ");
-                CommandLine.run(new CliNet(), arguments);
+                try {
+                    CommandLine.run(new CliNet(), arguments);
+                } catch (CommandLine.ExecutionException e) {
+                    System.out.println("Error... ");
+                    e.printStackTrace();
+                }
             } else {
                 break;
             }
