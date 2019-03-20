@@ -1,3 +1,8 @@
-FROM openjdk:8
-ADD ../out/artifacts/cli_net_jar/cli_net.jar client.jar
-CMD exec java $JAVA_OPTS -jar /client.jar
+FROM openjdk:8-jdk-alpine
+LABEL maintainer="anisimov.develop@gmail.com"
+
+COPY target/client-1.0-SNAPSHOT.jar /usr/src/client.jar
+
+WORKDIR /usr/src
+
+CMD java -jar client.jar list -s localhost -p 8080

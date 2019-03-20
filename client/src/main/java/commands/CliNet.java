@@ -6,6 +6,8 @@ import response_models.ApiVersionInfo;
 import response_models.ListOfNetInterfaces;
 import response_models.NetworkInterfaceInfo;
 
+import java.net.ConnectException;
+
 @CommandLine.Command(name = "cli_net", subcommands = {
         List.class,
         Show.class,
@@ -33,6 +35,8 @@ class Version implements Runnable {
                 + "/service/version", ApiVersionInfo.class);
         assert apiVersionInfo != null;
         System.out.println(apiVersionInfo.getActualApiVersion());
+
+
     }
 }
 
