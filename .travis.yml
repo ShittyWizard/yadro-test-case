@@ -13,4 +13,4 @@ script: mvn install -DskipTests=false -Dmaven.javadoc.skip=true -B -V
 after_success:
   - docker image build -f server/Dockerfile -t omegacat/test-case-server:latest_version .
   - docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
-  - docker push omegacat/test-case-server:latest_version
+  - docker push omegacat/test-case-server:test
