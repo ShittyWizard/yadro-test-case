@@ -4,8 +4,13 @@ import java.util.ArrayList;
 
 public class ListOfNetInterfaces {
     private ArrayList<String> namesOfInterfaces;
+    private String error;
 
     public ListOfNetInterfaces() {
+    }
+
+    public ListOfNetInterfaces(String error) {
+        this.error = error;
     }
 
     public ListOfNetInterfaces(ArrayList<String> namesOfInterfaces) {
@@ -14,5 +19,9 @@ public class ListOfNetInterfaces {
 
     public ArrayList<String> getNamesOfInterfaces() {
         return namesOfInterfaces;
+    }
+
+    public String getError() {
+        return error;
     }
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class ListOfNetInterfaces {
     private ArrayList<String> namesOfInterfaces;
+    private String error;
 
     public ListOfNetInterfaces() {
     }
@@ -16,10 +17,18 @@ public class ListOfNetInterfaces {
         this.namesOfInterfaces = namesOfInterfaces;
     }
 
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        if (namesOfInterfaces.size() != 0) {
+        if (namesOfInterfaces != null) {
             for (int i = 0; i < namesOfInterfaces.size(); i++) {
                 if (i < namesOfInterfaces.size() - 1) {
                     sb.append(namesOfInterfaces.get(i)).append(", ");
@@ -28,7 +37,7 @@ public class ListOfNetInterfaces {
             }
             return sb.toString();
         } else {
-            return "";
+            return error;
         }
     }
 }

@@ -5,8 +5,13 @@ public class NetworkInterfaceInfo {
     private String hw_addr;
     private String inet_addr;
     private String MTU;
+    private String error;
 
     public NetworkInterfaceInfo() {
+    }
+
+    public NetworkInterfaceInfo(String error) {
+        this.error = error;
     }
 
     public NetworkInterfaceInfo(String name, String hw_addr, String inet_addr, String MTU) {
@@ -32,4 +37,7 @@ public class NetworkInterfaceInfo {
         return MTU;
     }
 
+    public String getError() {
+        return error;
+    }
 }

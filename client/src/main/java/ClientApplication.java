@@ -18,7 +18,6 @@ public class ClientApplication {
                     CommandLine.run(new CliNet(), arguments);
                 } catch (CommandLine.ExecutionException e) {
                     System.out.println("Error... ");
-                    e.printStackTrace();
                 } catch (Exception e) {
                     System.out.println("Ooops... Something happened");
                     e.printStackTrace();

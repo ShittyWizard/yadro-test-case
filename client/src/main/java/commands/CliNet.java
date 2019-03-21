@@ -7,8 +7,6 @@ import response_models.ApiVersionInfo;
 import response_models.ListOfNetInterfaces;
 import response_models.NetworkInterfaceInfo;
 
-import java.net.ConnectException;
-
 @CommandLine.Command(name = "cli_net", subcommands = {
         List.class,
         Show.class,
@@ -39,7 +37,6 @@ class Version implements Runnable {
             System.out.println(apiVersionInfo.getActualApiVersion());
         } catch (ResourceAccessException e) {
             System.out.println("Error... Resource is not available");
-            e.printStackTrace();
         }
     }
 }
@@ -69,10 +66,9 @@ class List implements Runnable {
                                     + "/interfaces",
                             ListOfNetInterfaces.class);
             assert listOfNetInterfaces != null;
-            System.out.println(listOfNetInterfaces);
+            System.out.println(listOfNetInterfaces.toString());
         } catch (ResourceAccessException e) {
             System.out.println("Error... Resource is not available");
-            e.printStackTrace();
         }
     }
 }
@@ -107,7 +103,6 @@ class Show implements Runnable {
             System.out.println(networkInterfaceInfo.toString());
         } catch (ResourceAccessException e) {
             System.out.println("Error... Resource is not available");
-            e.printStackTrace();
         }
     }
 }

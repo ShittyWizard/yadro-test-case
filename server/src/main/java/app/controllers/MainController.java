@@ -30,8 +30,8 @@ public class MainController {
     }
 
     /**
-     * @param apiVersion       - version of API;
-     * @return                 - list of all network interfaces;
+     * @param apiVersion - version of API;
+     * @return - list of all network interfaces;
      * @throws SocketException - exception, if we can't get network interfaces;
      */
     @RequestMapping("/service/{apiVersion}/interfaces")
@@ -44,15 +44,14 @@ public class MainController {
             }
             return new ListOfNetInterfaces(namesOfInterfaces);
         } else {
-            System.out.println("This API version is not actual. Please, get the actual API version");
-            return null;
+            return new ListOfNetInterfaces("This API version is not actual. Please, get the actual API version");
         }
     }
 
     /**
-     * @param name             - name of network interface;
-     * @param apiVersion       - version of API;
-     * @return                 - detailed info about selected network interface;
+     * @param name       - name of network interface;
+     * @param apiVersion - version of API;
+     * @return - detailed info about selected network interface;
      * @throws SocketException - exception, if we can't get network interfaces;
      */
     @RequestMapping("/service/{apiVersion}/interface/name")
@@ -71,14 +70,11 @@ public class MainController {
                     }
                 }
             } catch (NullPointerException e) {
-                System.out.println("Can't get one of the details about this interface.");
-                e.printStackTrace();
+                System.out.println("Can't get one of the details about this interface. NullPointerException");
             }
-            System.out.println("Error after try/catch...");
-            return null;
+            return new NetworkInterfaceInfo("Error with getting some of network interface details");
         } else {
-            System.out.println("This API version is not actual. Please, get the actual API version");
-            return null;
+            return new NetworkInterfaceInfo("This API version is not actual. Please, get the actual API version");
         }
     }
 
@@ -98,7 +94,6 @@ public class MainController {
             return sb.toString();
         } catch (SocketException | NullPointerException e) {
             System.out.println("Can't get hardware address of this network interface.");
-            e.printStackTrace();
         }
         return "-";
     }
@@ -107,13 +102,12 @@ public class MainController {
      * @param netint - selected network interface;
      * @return -       MTU;
      */
-    private String getStringMTU(NetworkInterface netint) {
-        try {
-            return String.valueOf(netint.getMTU());
-        } catch (SocketException e) {
-            System.out.println("Can't get MTU of this network interface.");
-            e.printStackTrace();
-        }
-        return "-";
+    private String getStringMTU(NetworkInterface netint) throws SocketException {
+//        try {
+//            return String.valueOf(netint.getMTU());
+//        } catch (SocketException e) {
+//            System.out.println("Can't get MTU of this network interface.");
+//        }
+        return String.valueOf(netint.getMTU());
     }
 }

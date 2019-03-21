@@ -18,7 +18,8 @@ public class ApiVersionInfo {
         return previousApiVersions;
     }
 
-    /**It helps changing and maintaining new and previous API's;
+    /**
+     * It helps changing and maintaining new and previous API's;
      *
      * @param newApiVersion - new actual version of API;
      */
