@@ -19,6 +19,9 @@ public class ClientApplication {
                 } catch (CommandLine.ExecutionException e) {
                     System.out.println("Error... ");
                     e.printStackTrace();
+                } catch (Exception e) {
+                    System.out.println("Ooops... Something happened");
+                    e.printStackTrace();
                 }
             } else {
                 break;
