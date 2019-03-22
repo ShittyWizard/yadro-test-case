@@ -32,9 +32,9 @@ You will get something like that:
 
 Okay, then we should run client application.
 
-Clone this repository. Client's JAR-file located in *client/target/client-1.0-SNAPSHOT.jar*.
+Clone this repository. Client's JAR-file located in *client/client-1.0-SNAPSHOT.jar*.
 
-For running it go to *yadro_test_case/client/target* and run command:
+For running it go to *yadro_test_case/client/* and run command:
 
     java -jar client-1.0-SNAPSHOT.jar
 
