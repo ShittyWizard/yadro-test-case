@@ -1,6 +1,8 @@
 # Created by .ignore support plugin (hsz.mobi)
+!/client/target/client-1.0-SNAPSHOT.jar
 /target/
 /yadro_test_case.iml
 /.idea/
 /client/client.iml
 /server/server.iml
+
