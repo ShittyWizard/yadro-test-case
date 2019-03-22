@@ -3,7 +3,7 @@
 <h2> Description </h2>
 RESTful service for getting information about network interfaces + CLI client for it.
 
-Include Unit-tests( **JUnit**) connected to **Travis-CI** and **DockerHub**.
+Include server's Unit-tests ( **JUnit**) connected to **Travis-CI** and **DockerHub**.
 
 <h2> Getting started with cli_net </h2>
 First of all you should install Docker - https://docs.docker.com/install/
