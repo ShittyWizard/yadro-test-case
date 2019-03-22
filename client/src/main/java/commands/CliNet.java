@@ -7,10 +7,13 @@ import response_models.ApiVersionInfo;
 import response_models.ListOfNetInterfaces;
 import response_models.NetworkInterfaceInfo;
 
-@CommandLine.Command(name = "cli_net", subcommands = {
-        List.class,
-        Show.class,
-        Version.class})
+@CommandLine.Command(name = "cli_net",
+        version = "v1",
+        mixinStandardHelpOptions = true,
+        subcommands = {
+                List.class,
+                Show.class,
+                Version.class})
 public class CliNet implements Runnable {
     @Override
     public void run() {
@@ -21,10 +24,10 @@ public class CliNet implements Runnable {
 @CommandLine.Command(name = "version",
         description = "Prints actual API version")
 class Version implements Runnable {
-    @CommandLine.Option(names = {"-s", "--server"}, required = true)
+    @CommandLine.Option(names = {"-s", "--server"}, description = "Host address", required = true)
     private String server;
 
-    @CommandLine.Option(names = {"-p", "--port"}, required = true)
+    @CommandLine.Option(names = {"-p", "--port"}, description = "Port", required = true)
     private String port;
 
     @Override
@@ -43,15 +46,17 @@ class Version implements Runnable {
 
 
 @CommandLine.Command(name = "list",
+        version = "v1",
+        mixinStandardHelpOptions = true,
         description = "Prints all network interfaces")
 class List implements Runnable {
-    @CommandLine.Option(names = "-v", defaultValue = "v1")
+    @CommandLine.Option(names = {"-v"}, defaultValue = "v1", description = "Version of API")
     private String apiVersion;
 
-    @CommandLine.Option(names = {"-s", "--server"}, required = true)
+    @CommandLine.Option(names = {"-s", "--server"}, description = "Host address", required = true)
     private String server;
 
-    @CommandLine.Option(names = {"-p", "--port"}, required = true)
+    @CommandLine.Option(names = {"-p", "--port"}, description = "Port", required = true)
     private String port;
 
     @Override
@@ -74,18 +79,20 @@ class List implements Runnable {
 }
 
 @CommandLine.Command(name = "show",
+        version = "v1",
+        mixinStandardHelpOptions = true,
         description = "Prints detail information about selected network interface")
 class Show implements Runnable {
-    @CommandLine.Option(names = "-v", defaultValue = "v1")
+    @CommandLine.Option(names = {"-v"}, defaultValue = "v1", description = "Version of API")
     private String apiVersion;
 
     @CommandLine.Parameters(index = "0", arity = "1..*")
     private String networkInterface;
 
-    @CommandLine.Option(names = {"-s", "--server"}, required = true)
+    @CommandLine.Option(names = {"-s", "--server"}, description = "Host address", required = true)
     private String server;
 
-    @CommandLine.Option(names = {"-p", "--port"}, required = true)
+    @CommandLine.Option(names = {"-p", "--port"}, description = "Port", required = true)
     private String port;
 
     @Override
